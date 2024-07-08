@@ -1,0 +1,15 @@
+{
+  //setup for not use typescript and allow to use JS
+  "compilerOptions": {
+    "allowJs": true,
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}
