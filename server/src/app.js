@@ -20,6 +20,12 @@ app.get('/status',(req,res)=>{
     })
 })
 
+app.post('/register',(req,res)=>{
+    res.send({
+        message:`Your email ${req.body.email} is registered.`
+    })
+})
+
 require('./routes')(app);
 
 sequelize.sync()
