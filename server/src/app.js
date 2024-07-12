@@ -7,7 +7,6 @@ const app = express();
 const {sequelize} = require('./models');
 const config = require('./config/config');
 
-console.log(config)
 
 app.use(morgan('combined'));//print log in certain way
 app.use(bodyParser.json());//pase any json format file request sent in
@@ -30,7 +29,6 @@ require('./routes')(app);
 
 sequelize.sync()
     .then(()=>{
-
         app.listen(config.port);
         console.log(`server stared on port ${config.port}`)
     })
