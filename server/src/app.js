@@ -15,7 +15,7 @@ app.use(cors());//allow any host aor client to access this
 
 app.get('/status',(req,res)=>{
     res.send({
-        message:'good'
+        message:'good'  
     })
 })
 
