@@ -4,7 +4,7 @@ const { User } = require('../models');
 module.exports = {
     async register(req,res){
         console.log('________');
-        console.log('Server received the post data email: ' + req.body.email._value + '. password: ' + req.body.password._value)
+        console.log('Server received the post data email: ' + req.body.email + '. password: ' + req.body.password)
         // res.send({
         //     message:`Your ${req.body.email} and password ${req.body.password} are registered!`
         // })

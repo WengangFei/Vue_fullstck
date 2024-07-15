@@ -7,9 +7,13 @@ export default()=>{
     return axios.create({
         //custom config
         //point to backend url of 8080
-        baseURL:'http://localhost:8080/',
-        timeout:1000,
-        headers:{}
+        baseURL:'http://localhost:8080',
+        //here gave me a head ache, forgot to define the headers 
+        //that gave me bad request 404 error
+        headers:{
+            'Content-Type': 'application/json'
+        }
+   
     })
 }
 //axios.create() create a new instance with custom configuration

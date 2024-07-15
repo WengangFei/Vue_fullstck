@@ -12,7 +12,7 @@ const config = require('./config/config');
 app.use(morgan('combined'));//print log in certain way
 app.use(bodyParser.json());//pase any json format file request sent in
 app.use(cors());//allow any host aor client to access this
-// app.use(express.json())
+app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
 

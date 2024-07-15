@@ -3,6 +3,7 @@ import Api from '@/services/Api';
 
 export default {
     register(credentials){
+       
         //instance.post(url[,data[,config]])
         //The data then encapsulates the request body that 
         //we’re sending or parsing to the URL. It is in an 
@@ -12,7 +13,15 @@ export default {
         //the third parameter where we specify the header 
         //content type, authorization, and more. It is also 
         //in an object format.
-        return Api().post('/register',credentials);
+        return Api().post('/register',credentials)
+            .then(response => {
+                console.log('Response data:', response.data);
+            })
+            //if catch error here, the error will stop catch in front register page
+            // .catch(e=>{
+            //     console.log(e)
+            // })
+        
     }
 }
 // Api()=>

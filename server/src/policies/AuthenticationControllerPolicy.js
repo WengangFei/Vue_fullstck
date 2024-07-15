@@ -11,16 +11,14 @@ module.exports = {
             password:Joi.string().pattern(
                 //password is composed a - z/A-Z/least 8 characters and max 32
                 new RegExp('^[a-zA-Z0-9]{8,30}$'))
-        }).with('email','password')
+        })
           
         //validate request body against schema
         const {error,value} = schema.validate({
-            email: req.body.email._value,
-            password: req.body.password._value,
+            email: req.body.email,
+            password: req.body.password,
         })
-        
-       
-      console.log(error)
+    
         if(error){
             // console.log(error.details[0].context)
             // console.log(value.email._value)

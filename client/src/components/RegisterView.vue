@@ -26,18 +26,19 @@
     const password = ref('');
     const error = ref('');
 
-    async function submitForm(e){
-        e.preventDefault();
+    async function submitForm(event){
+        event.preventDefault();
         try{
             //here is the place to send front post request to back via axios
             await AuthenticationService.register({
-                email,
-                password,
+                email:email.value,
+                password:password.value,
             })
 
         }catch(e){
+            //here are server response.
             error.value = e.response.data.error
-            console.log(e.response.data.error)
+            // console.log(e)
         }
        
         // console.log(response);
