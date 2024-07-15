@@ -12,15 +12,15 @@ module.exports = {
        
         //write the user into User DB
         try{
+            //User model instance
             const user = await User.create(req.body);
-            console.log(user.toJSON())
+            // console.log(user.toJSON())
             res.send(user.toJSON());
         }catch(e){
             res.status(400).send({
                 error:'The email is exist!'
             })
-        }
-        
+        } 
 
     }
 }

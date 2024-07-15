@@ -7,16 +7,20 @@ module.exports = {
 
         //defining the constrains
         const schema = Joi.object({
-            email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+            email: Joi.string().email(),
             password:Joi.string().pattern(
                 //password is composed a - z/A-Z/least 8 characters and max 32
                 new RegExp('^[a-zA-Z0-9]{8,30}$'))
-        })
+        }).with('email','password')
           
         //validate request body against schema
-        const {error,value} = schema.validate(req.body)
+        const {error,value} = schema.validate({
+            email: req.body.email._value,
+            password: req.body.password._value,
+        })
         
-      
+       
+      console.log(error)
         if(error){
             // console.log(error.details[0].context)
             // console.log(value.email._value)
@@ -24,15 +28,12 @@ module.exports = {
                case 'email':
                 res.status(400).send({
                     //value is an object
-                    error:`Email ${value.email} is invalid.`
+                    error:error.details[0].message
                 })
                     break
                case 'password':
                 res.status(400).send({
-                    error:`The password ${value.password} is invalid.
-                    the rules are:
-                    Min length of 8 to max 32, a-z and A-Z
-                    `
+                    error:error.details[0].message
                 })
                     break
                 default:
