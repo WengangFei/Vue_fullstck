@@ -3,7 +3,7 @@ import Api from '@/services/Api';
 
 export default {
     register(credentials){
-        //axios instance.post(url[,data[,config]])
+        //instance.post(url[,data[,config]])
         //The data then encapsulates the request body that 
         //we’re sending or parsing to the URL. It is in an 
         //object format, which means it has a key and value.
@@ -13,11 +13,6 @@ export default {
         //content type, authorization, and more. It is also 
         //in an object format.
         return Api().post('/register',credentials);
-
-        // axios.create({
-        //     //point to backend url of 8080
-        //     baseURL:'http://localhost:8080/'
-        // })
     }
 }
 // Api()=>
@@ -27,3 +22,6 @@ export default {
 //     baseURL:'http://localhost:8080/'
 // })
 
+
+//this fun is used by submit the registered form from 
+//./register page front end

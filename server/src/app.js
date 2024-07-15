@@ -8,28 +8,37 @@ const {sequelize} = require('./models');
 const config = require('./config/config');
 
 
+
 app.use(morgan('combined'));//print log in certain way
 app.use(bodyParser.json());//pase any json format file request sent in
 app.use(cors());//allow any host aor client to access this
+// app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.get('/status',(req,res)=>{
-    res.send({
-        message:'good'  
-    })
+app.get('/',(req,res)=>{
+    console.log('________')
+    console.log('server received get request from home.')
+    console.log('________')
+    res.send('<h3>Home page</h3>')
 })
 
-app.post('/register',(req,res)=>{
-    res.send({
-        message:`Your email ${req.body.email} is registered.`
-    })
-})
 
+
+
+//receives the routes from front end
 require('./routes')(app);
+
 
 sequelize.sync()
     .then(()=>{
         app.listen(config.port);
         console.log(`server stared on port ${config.port}`)
     })
+
+// (async()=>{
+//     const resp = await sequelize.sync();
+//     app.listen(config.port);
+//     console.log(`server stared on port ${config.port}`)
+// })()
 

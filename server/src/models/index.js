@@ -17,13 +17,12 @@ const sequelize = new Sequelize(
 fs.readdirSync(__dirname).filter(file=>file !== 'index.js')
 .forEach(file=>{
     //call the function defined in each file under the models folder  
-    // this fun return model = 'User'  
+    // this fun return model class User
     const model = require(path.join(__dirname,file))(sequelize,DataTypes);
     db[model.name] = model;
     // console.log(model.getTableName())
+    
 })
-
-
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
