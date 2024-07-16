@@ -18,7 +18,9 @@ module.exports = {
             email: req.body.email,
             password: req.body.password,
         })
-    
+        
+       
+    //   console.log(error)
         if(error){
             // console.log(error.details[0].context)
             // console.log(value.email._value)
