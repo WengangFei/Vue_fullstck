@@ -22,7 +22,7 @@ export default {
             //     console.log(e)
             // })
         
-    }
+    }   
 }
 // Api()=>
     
