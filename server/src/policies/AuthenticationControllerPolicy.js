@@ -11,7 +11,7 @@ module.exports = {
             password:Joi.string().pattern(
                 //password is composed a - z/A-Z/least 8 characters and max 32
                 new RegExp('^[a-zA-Z0-9]{8,30}$'))
-        })
+        }).with('email','password')
           
         //validate request body against schema
         const {error,value} = schema.validate({
@@ -23,7 +23,7 @@ module.exports = {
     //   console.log(error)
         if(error){
             // console.log(error.details[0].context)
-            // console.log(value.email._value)
+            console.log(error.details[0].context)
             switch (error.details[0].context.key){
                case 'email':
                 res.status(400).send({
@@ -33,7 +33,8 @@ module.exports = {
                     break
                case 'password':
                 res.status(400).send({
-                    error:error.details[0].message
+                    error:`Password length is min. 8 - max. 32 characters. <br />
+                    The characters are composed of a-z,A-Z and at least one special character.`
                 })
                     break
                 default:

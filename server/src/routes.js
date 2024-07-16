@@ -8,6 +8,7 @@ module.exports = (app)=>{
     app.post('/register',
         //use joi framework to validate the front inputs
         AuthenticationsControllerPolicy.register,
+        //if inputs pass the joi, will write into DB
         AuthenticationsController.register
     )
 }
