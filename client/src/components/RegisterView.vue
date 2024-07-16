@@ -1,19 +1,25 @@
 <template>
     <div class="text-center">
         Register Page
-        <form action="/register" method="POST" class="border-2 w-6/12 m-auto my-10 rounded-lg p-6">
+        <v-sheet class="mx-auto" width="300">
+            <v-form ref="myForm" lazy-validation>
+                <v-text-field
+                    v-model="email"
+                    label="Email"
+                    :rules="emailRules"
+                    required
+                ></v-text-field>
 
-            <input v-model="email" type='email' class="border-2 my-3 p-2 rounded-md" placeholder="Your email"/><br />
-            <input v-model="password" type='password' class="border-2 my-3 rounded-md" placeholder="Your password"/><br />
-            <div v-html="error" class="text-red-500 text-xs" />
-            <button @click="submitForm" class="bg-indigo-500 text-white px-1 rounded-md my-6">Register</button>
-            
-        </form>
-        
-            
-
-
-  
+                <v-text-field
+                    v-model="password"
+                    label="Password"
+                    :rules="passwordRules"
+                    required
+                ></v-text-field>
+                <div v-html="error" class="text-red-500 text-xs" />
+                <v-btn @click="submitForm" class="mt-2" type="submit" block>Submit</v-btn>
+            </v-form>
+        </v-sheet>
     </div>
 </template>
 
@@ -25,24 +31,46 @@
     const email = ref('');
     const password = ref('');
     const error = ref('');
+    const myForm = ref('jeijei');
+    const emailRules = [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+    ];
+    const passwordRules = [
+      v => !!v || 'Name is required',
+      v => (v && v.length >= 3) || 'Name must be at least 3 characters'
+    ];
 
+
+    
     async function submitForm(event){
         event.preventDefault();
-        try{
-            //here is the place to send front post request to back via axios
-            await AuthenticationService.register({
-                email:email.value,
-                password:password.value,
-            })
+        // console.log(await myForm)
+        if(await myForm.value.validate().valid){
 
-        }catch(e){
-            //here are server response.
-            error.value = e.response.data.error
-            console.log(e)
+        
+            try{
+                
+            //here is the place to send front post request to back via axios
+                await AuthenticationService.register({
+                    email:email.value,
+                    password:password.value,
+                })
+            
+
+            }catch(e){
+                //here are server response.
+                error.value = e.response.data.error
+                console.log(e)
+            }
+        
+            console.log(error.value);
         }
-       
-        console.log(error.value);
+        else{
+            console.log('form no good')
+        }
     }
+  
     
 </script>
 

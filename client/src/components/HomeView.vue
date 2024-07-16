@@ -1,22 +1,22 @@
 <template>
-    <v-app>
-    <v-main>
-      <v-container>
-        <v-btn color="primary">Home Page</v-btn>
-        <v-alert 
-            class="my-4"
-            color="success"
-            icon="$success"
-            title="You got it"
-            text="Learning vuetify ......"
-        ></v-alert>
-      </v-container>
-    </v-main>
-  </v-app>
-</template>
+    <div> Parent Component</div>
+  
 
-<script>
-    export default {
-        
-    }
+    <v-name :msg="atr">
+        <template #slot1>
+            replacement for slot 1
+        </template>
+        <template #slot2="s">
+            replacement for slot 2 --- {{ s.s }}
+        </template>
+    </v-name>
+</template>
+  
+
+<script setup>
+import VName from './VName.vue';
+
+const atr = 'gun'
+
+
 </script>
