@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
-const {sequelize} = require('./models');
+const {sequelize,Sequelize} = require('./models');
 const config = require('./config/config');
 const frontPostRequests = require('./routes');
 
@@ -22,10 +22,10 @@ app.get('/',(req,res)=>{
     res.send('<h3>Home page</h3>')
 });
 
-//receives front post requests
+//receives front post requests validate data and write into DB
 frontPostRequests(app);
 
-
+//create the data model and validate ir 
 sequelize.sync()
     .then(()=>{
         app.listen(config.port);

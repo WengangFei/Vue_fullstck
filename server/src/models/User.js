@@ -1,4 +1,4 @@
-
+// create a user model
 module.exports = (sequelize,DataTypes)=>
     sequelize.define(
         'User',{

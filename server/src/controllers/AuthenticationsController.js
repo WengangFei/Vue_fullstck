@@ -12,7 +12,8 @@ module.exports = {
        
         //write the user into User DB
         try{
-            //User model instance
+            console.log(req)
+            //User model instance to create user table
             const user = await User.create(req.body);
             // console.log(user.toJSON())
             // console.log(req.body)
