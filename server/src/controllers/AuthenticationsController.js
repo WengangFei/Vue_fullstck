@@ -1,5 +1,15 @@
 //get model User class to create register user into DB
 const { User } = require('../models');
+//web authentication token
+const jwt  = require('jsonwebtoken');
+const config = require('../config/config');
+
+//sign a user object using the jwt library to give back jwt token
+function jwtSignUser(user){
+    const ONE_WEEK = 60 * 60 *7 *24;
+    //if add callback function in sign(),it wont return token
+    return jwt.sign(user,config.authentication.jwtSecret)
+}
 
 module.exports = {
     async register(req,res){
@@ -12,7 +22,7 @@ module.exports = {
        
         //write the user into User DB
         try{
-            console.log(req)
+            //received the valid user registered credentials
             //User model instance to create user table
             const user = await User.create(req.body);
             // console.log(user.toJSON())
@@ -42,6 +52,8 @@ module.exports = {
                     email: email
                 }
             })
+            //show login user's information in json format
+            console.log('user', user.toJSON())
             //can not find the email
             if(!user){
                 res.status(403).send({
@@ -56,16 +68,19 @@ module.exports = {
                     error:'Password is not matching.'
                 })
             } 
-
+            //create jwt 
+            const userToken = jwtSignUser(user.toJSON());
             //log in successfully, do other logic here
             console.log('server side Log in successfully.')
             res.send({
-                message:'Client side prompt: Log in successfully.'
+                message:'Client side prompt: Log in successfully.',
+                token: userToken,
         })
-        }catch(e){
+        }
+        catch(e){
             //this will rare happen.
             res.status(500).send({
-                error:'Login credentials are all correct. No idea Y this happen.'
+                error:'Login credentials are all correct. No idea Y this is happening.'
             })
         }
         

@@ -22,10 +22,10 @@ app.get('/',(req,res)=>{
     res.send('<h3>Home page</h3>')
 });
 
-//receives front post requests validate data and write into DB
+//receives front post requests validate data 
 frontPostRequests(app);
 
-//create the data model and validate ir 
+//create the table and save in DB
 sequelize.sync()
     .then(()=>{
         app.listen(config.port);

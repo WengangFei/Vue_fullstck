@@ -73,8 +73,9 @@
 
             }catch(e){
                 //here are server response.
-                error.value = e.response.data.error
                 console.log(e)
+                error.value = e.response.data.error
+                
             }
         
             //log the error
