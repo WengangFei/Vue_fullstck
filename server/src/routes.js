@@ -10,5 +10,12 @@ module.exports = (app)=>{
         AuthenticationsControllerPolicy.register,
         //if inputs pass the joi, will write into DB
         AuthenticationsController.register
+    ),
+
+    app.post('/login',
+        //use joi framework to validate the front inputs
+        // AuthenticationsControllerPolicy.register,
+        //if inputs pass the joi, will write into DB
+        AuthenticationsController.login
     )
 }

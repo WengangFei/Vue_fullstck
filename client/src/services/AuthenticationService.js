@@ -15,14 +15,21 @@ export default {
         //in an object format.
         return Api().post('/register',credentials)
             .then(response => {
-                console.log('Response data:', response.data);
+                console.log('Register response data:', response.data);
             })
             //if catch error here, the error will stop catch in front register page
             // .catch(e=>{
             //     console.log(e)
             // })
         
-    }   
+    },
+
+    login(credentials){
+        return Api().post('/login',credentials)
+        .then(response =>{
+            console.log('Login response data:', response.data)
+        })
+    }
 }
 // Api()=>
     
@@ -34,3 +41,4 @@ export default {
 
 //this fun is used by submit the registered form from 
 //./register page front end
+
