@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <div class="text-center py-14">
         <v-sheet class="mx-auto" width="300" >
             <v-form ref="myForm" lazy-validation>
                 <v-text-field
@@ -67,6 +67,7 @@
                 await AuthenticationService.register({
                     email:email.value,
                     password:password.value,
+                    confirmPassword:confirmPassword.value, 
                 })
             
 
@@ -76,7 +77,8 @@
                 console.log(e)
             }
         
-            console.log(error.value);
+            //log the error
+            if(error.value) console.log(error.value)
         }
         else{
             console.log('form no good')

@@ -38,21 +38,21 @@ function changeToLoginPage(){
           <v-toolbar-items>
             <RouterLink 
               to="/" 
-              class="bg-red-400 m-4 px-1 rounded-md text-white pt-1"
+              class="bg-red-400 m-4 px-1 rounded-md text-white"
               @click="changeToHomePage"
               >
               Home
             </RouterLink>
             <RouterLink 
               to="/register"
-              class="bg-sky-400 m-4 px-1 rounded-md text-white pt-1"
+              class="bg-sky-400 m-4 px-1 rounded-md text-white"
               @click="changeToRegisterPage"
               >
               Register
             </RouterLink>
             <RouterLink 
               to="/login"
-              class="bg-sky-400 m-4 px-1 rounded-md text-white pt-1"
+              class="bg-sky-400 m-4 px-1 rounded-md text-white"
               @click="changeToLoginPage"
               >
               Log In

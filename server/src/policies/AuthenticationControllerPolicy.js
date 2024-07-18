@@ -1,5 +1,5 @@
 const Joi = require('joi');
-
+//this is validation of front post method request data
 
 module.exports = {
     
@@ -7,16 +7,18 @@ module.exports = {
 
         //defining the constrains
         const schema = Joi.object({
-            email: Joi.string().email(),
+            email: Joi.string().email().required(),
             password:Joi.string().pattern(
                 //password is composed a - z/A-Z/least 8 characters and max 32
-                new RegExp('^[a-zA-Z0-9]{8,30}$'))
+                new RegExp('^[a-zA-Z0-9]{8,30}$')),
+            confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
         }).with('email','password')
           
         //validate request body against schema
         const {error,value} = schema.validate({
             email: req.body.email,
             password: req.body.password,
+            confirmPassword: req.body.confirmPassword,
         })
         
        
@@ -37,6 +39,12 @@ module.exports = {
                     The characters are composed of a-z,A-Z and at least one special character.`
                 })
                     break
+
+                case 'confirmPassword':
+                    res.status(400).send({
+                        error:'Password is not match'
+                    })
+                        break
                 default:
                     res.status(400).send({
                         error: 'Failed to registered. Try to fix the issue as it prompts.'
