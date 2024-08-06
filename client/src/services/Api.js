@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 export default()=>{
-    //return a connector
+    //return a promise based connector
     return axios.create({
         //custom config
         //point to backend url of 8080

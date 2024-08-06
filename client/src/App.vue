@@ -1,9 +1,12 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { ref } from 'vue';
 
+
+//router object
+const router = useRouter();
 const title = ref('Home Page');
-           
+          
 
 function changeToRegisterPage(){
   title.value = 'Register Page'
@@ -16,6 +19,10 @@ function changeToHomePage(){
 function changeToLoginPage(){
   title.value = 'Login Page'
 }
+//push the route to local router object
+function navigateTo(route){
+  router.push(route)
+}
 
 </script>
 
@@ -24,7 +31,7 @@ function changeToLoginPage(){
 <template>
   <v-app>
     <main>
-      <v-container>
+      <v-container class="w-full fixed top-0 z-50">
         <v-toolbar border> 
           <RouterLink to="/" @click="changeToHomePage">
             <v-toolbar-title>
@@ -36,13 +43,20 @@ function changeToLoginPage(){
             {{ title }}
           </v-toolbar-title>
           <v-toolbar-items>
-            <RouterLink 
+            <!-- <RouterLink 
               to="/" 
               class="bg-red-400 m-4 px-1 rounded-md text-white"
               @click="changeToHomePage"
               >
               Home
-            </RouterLink>
+            </RouterLink> -->
+
+            <v-btn 
+            @click="navigateTo({name:'home'})"
+            >
+              Home
+            </v-btn>
+
             <RouterLink 
               to="/register"
               class="bg-sky-400 m-4 px-1 rounded-md text-white"
@@ -60,9 +74,11 @@ function changeToLoginPage(){
           </v-toolbar-items>
         </v-toolbar>
       </v-container>
-      <div>
+      <div class="my-20">
         <RouterView />
       </div>
     </main>
   </v-app>
 </template>
+
+

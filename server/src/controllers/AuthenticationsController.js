@@ -44,22 +44,23 @@ module.exports = {
         console.log('________');
        
         try{
+            
             //get request email and password
             const { email,password } = req.body;
+            console.log('############')
+            console.log(email,password)
             //find the user by user email from DB
             const user = await User.findOne({
                 where:{
                     email: email
                 }
             })
-            //show login user's information in json format
-            console.log('user', user.toJSON())
+            
             //can not find the email
             if(!user){
                 res.status(403).send({
                     error:'User email not exist.'
                 })
-                console.log('User email not exist')
             }
             //validate exist user's password and see if match the password that saved in DB
             const isPasswordValid = password === user.password;
@@ -68,6 +69,9 @@ module.exports = {
                     error:'Password is not matching.'
                 })
             } 
+
+            //show login user's information in json format
+            console.log('user', user.toJSON())
             //create jwt 
             const userToken = jwtSignUser(user.toJSON());
             //log in successfully, do other logic here
@@ -80,7 +84,7 @@ module.exports = {
         catch(e){
             //this will rare happen.
             res.status(500).send({
-                error:'Login credentials are all correct. No idea Y this is happening.'
+                error:'Something else wrong.'
             })
         }
         

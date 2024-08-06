@@ -46,22 +46,24 @@ import AuthenticationService from '@/services/AuthenticationService';
         event.preventDefault();
         //if page not fill out, show the error and stop send the request to backend.
         if((await loginForm.value.validate()).valid){
+         
             try{
             //here is the place to send front post request to back via axios
                 await AuthenticationService.login({
                     email:email.value,
                     password:password.value,
                 })
-            
 
-            }catch(e){
+            }
+            catch(e){
                 console.log(e)
                 //here are server response.
-                error.value = e.response.data.error
-                
+                error.value = e.response?.data.error 
+                // error.value = e.message 
+                console.log(error.value);
             }
         
-            console.log(error.value);
+            
         
         }  
         else{
