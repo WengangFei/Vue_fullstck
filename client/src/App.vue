@@ -32,7 +32,7 @@ function navigateTo(route){
   <v-app>
     <main>
       <v-container class="w-full fixed top-0 z-50">
-        <v-toolbar border> 
+        <v-toolbar> 
           <RouterLink to="/" @click="changeToHomePage">
             <v-toolbar-title>
               New Project
@@ -74,7 +74,7 @@ function navigateTo(route){
           </v-toolbar-items>
         </v-toolbar>
       </v-container>
-      <div class="my-20">
+      <div class="mt-40">
         <RouterView />
       </div>
     </main>

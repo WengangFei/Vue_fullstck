@@ -44,6 +44,7 @@ import AuthenticationService from '@/services/AuthenticationService';
 
     async function loginSubmit(event){
         event.preventDefault();
+        console.log(await loginForm.value.validate())
         //if page not fill out, show the error and stop send the request to backend.
         if((await loginForm.value.validate()).valid){
          
@@ -62,8 +63,6 @@ import AuthenticationService from '@/services/AuthenticationService';
                 // error.value = e.message 
                 console.log(error.value);
             }
-        
-            
         
         }  
         else{

@@ -8,7 +8,7 @@ const config = require('../config/config');
 function jwtSignUser(user){
     const ONE_WEEK = 60 * 60 *7 *24;
     //if add callback function in sign(),it wont return token
-    return jwt.sign(user,config.authentication.jwtSecret)
+    return jwt.sign(user,config.authentication.jwtSecret,{expiresIn: ONE_WEEK})
 }
 
 module.exports = {
@@ -47,8 +47,6 @@ module.exports = {
             
             //get request email and password
             const { email,password } = req.body;
-            console.log('############')
-            console.log(email,password)
             //find the user by user email from DB
             const user = await User.findOne({
                 where:{
@@ -58,16 +56,21 @@ module.exports = {
             
             //can not find the email
             if(!user){
-                res.status(403).send({
-                    error:'User email not exist.'
-                })
+                //add return to prevent send multiple response to the same request
+                return(
+                    res.status(403).send({
+                        error:'User email not exist.'
+                }));
             }
             //validate exist user's password and see if match the password that saved in DB
             const isPasswordValid = password === user.password;
             if(!isPasswordValid){
-                res.status(403).send({
-                    error:'Password is not matching.'
-                })
+                //add return to prevent send multiple response to the same request
+                return(
+                    res.status(403).send({
+                        error:'Password is not matching.'
+                }));
+                
             } 
 
             //show login user's information in json format
@@ -79,7 +82,7 @@ module.exports = {
             res.send({
                 message:'Client side prompt: Log in successfully.',
                 token: userToken,
-        })
+            })
         }
         catch(e){
             //this will rare happen.
@@ -87,8 +90,5 @@ module.exports = {
                 error:'Something else wrong.'
             })
         }
-        
     }
-
-
 }
