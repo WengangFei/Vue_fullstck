@@ -11,14 +11,14 @@ module.exports = {
             password:Joi.string().pattern(
                 //password is composed a - z/A-Z/least 8 characters and max 32
                 new RegExp('^[a-zA-Z0-9]{8,30}$')),
-            confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
+            // confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
         }).with('email','password')
           
         //validate request body against schema
         const {error,value} = schema.validate({
             email: req.body.email,
             password: req.body.password,
-            confirmPassword: req.body.confirmPassword,
+            // confirmPassword: req.body.confirmPassword,
         })
         
        
@@ -40,11 +40,11 @@ module.exports = {
                 })
                     break
 
-                case 'confirmPassword':
-                    res.status(400).send({
-                        error:'Password is not match'
-                    })
-                        break
+                // case 'confirmPassword':
+                //     res.status(400).send({
+                //         error:'Password is not match'
+                //     })
+                //         break
                 default:
                     res.status(400).send({
                         error: 'Failed to registered. Try to fix the issue as it prompts.'

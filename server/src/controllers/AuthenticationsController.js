@@ -3,6 +3,7 @@ const { User } = require('../models');
 //web authentication token
 const jwt  = require('jsonwebtoken');
 const config = require('../config/config');
+const { is } = require('bluebird');
 
 //sign a user object using the jwt library to give back jwt token
 function jwtSignUser(user){
@@ -62,10 +63,14 @@ module.exports = {
                         error:'User email not exist.'
                 }));
             }
+
+            
             //validate exist user's password and see if match the password that saved in DB
-            const isPasswordValid = password === user.password;
+            const isPasswordValid = await user.comparePassword(password);
+            // const isPasswordValid = password === user.password;
             if(!isPasswordValid){
                 //add return to prevent send multiple response to the same request
+                console.log(password,user.password)
                 return(
                     res.status(403).send({
                         error:'Password is not matching.'

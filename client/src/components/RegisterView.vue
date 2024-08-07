@@ -58,7 +58,6 @@
     
     async function submitForm(event){
         event.preventDefault();
-        // console.log(await myForm)
         if((await myForm.value.validate()).valid){
 
             try{
@@ -67,7 +66,7 @@
                 await AuthenticationService.register({
                     email:email.value,
                     password:password.value,
-                    confirmPassword:confirmPassword.value, 
+                    // confirmPassword:confirmPassword.value, 
                 })
             
 
