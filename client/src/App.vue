@@ -3,10 +3,12 @@ import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { ref } from 'vue';
 
 
+
+
 //router object
 const router = useRouter();
 const title = ref('Home Page');
-          
+
 
 function changeToRegisterPage(){
   title.value = 'Register Page'
@@ -35,7 +37,7 @@ function navigateTo(route){
         <v-toolbar> 
           <RouterLink to="/" @click="changeToHomePage">
             <v-toolbar-title>
-              New Project
+              New Project 
             </v-toolbar-title>
           </RouterLink>
          
