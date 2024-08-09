@@ -26,6 +26,8 @@
 <script setup>
 import { ref } from 'vue';
 import AuthenticationService from '@/services/AuthenticationService'
+import { useRouterStore } from '../piniaStores/routerStore';
+import { useRouter } from 'vue-router';
 
     const email = ref('');
     const password = ref('');
@@ -39,8 +41,10 @@ import AuthenticationService from '@/services/AuthenticationService'
       v => !!v || 'Name is required',
       v => (v && v.length >= 8) || 'Name must be at least 3 characters'
     ];
-
-
+    //use pinia router store
+    const routerStore = useRouterStore();
+    //Use global router to navigate to home page after log in
+    const router = useRouter();
 
     async function loginSubmit(event){
         event.preventDefault();
@@ -50,11 +54,29 @@ import AuthenticationService from '@/services/AuthenticationService'
          
             try{
             //here is the place to send front post request to back via axios
-                await AuthenticationService.login({
+            //get back the login token.
+                const token = await AuthenticationService.login({
                     email:email.value,
                     password:password.value,
                 })
-
+                if(token){
+                    routerStore.setToken(token);
+                    //set all login information
+                    routerStore.$patch({
+                        user: email.value,
+                        isUserLoggedIn: true,
+                    })
+                    //after log in, navigate to home page.
+                    if(routerStore.isUserLoggedIn){
+                        router.push({name:'home'})
+                    }else{
+                        console.log('Not log in')
+                    }
+                }
+                else{
+                    console.log('Server did not send token to front.')
+                }
+                
             }
             catch(e){
                 console.log(e)
@@ -63,7 +85,7 @@ import AuthenticationService from '@/services/AuthenticationService'
                 // error.value = e.message 
                 console.log(error.value);
             }
-        
+            
         }  
         else{
             console.log('Login page need to be filled out.')

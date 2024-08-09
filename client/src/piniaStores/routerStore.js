@@ -5,12 +5,39 @@ import { defineStore } from 'pinia';
 
 export const useRouterStore = defineStore('routerStore',{
     state:()=>({
+        token: null,
+        user: null,
+        isUserLoggedIn: false,
         currentRoute: '/',
     }),
 
     actions:{
-        updateRoute(route){
-            this.currentRoute = route;
+        setToken(newToken){
+            this.token = newToken;
+            localStorage.setItem('authToken',newToken);
+        },
+
+        loadToken(){
+            const storedToken = localStorage.getItem('authToken');
+            if(storedToken){
+                this.token = storedToken;
+            }
+        },
+
+        clearToken(){
+            this.token = null;
+            localStorage.removeItem('authToken');
         }
     },
+
+    getters:{
+        isAuthenticated: state=> !!state.token,
+    }
+
+    // actions:{
+    //     updateRoute(route){
+    //         this.currentRoute = route;
+    //     }
+    // },
 })
+

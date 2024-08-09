@@ -17,8 +17,9 @@ const currentRoute = computed(()=> routerStore.currentRoute);
 watch(
   ()=>route.fullPath,
   (newRoute,oldRoute)=>{
-    console.log(oldRoute, '=>', newRoute)
-    routerStore.updateRoute(newRoute);
+    // console.log(oldRoute, '=>', newRoute)
+    // routerStore.updateRoute(newRoute);
+    routerStore.$patch({currentRoute: newRoute});
   }
 )
 
@@ -41,7 +42,6 @@ function navigateTo(route){
 </script>
 
 
-
 <template>
   <v-app>
     <main>
@@ -50,7 +50,7 @@ function navigateTo(route){
           <RouterLink to="/" @click="changeToHomePage">
             <v-toolbar-title>
               New Project 
-              {{ currentRoute }}
+           
             </v-toolbar-title>
           </RouterLink>
          
@@ -79,13 +79,15 @@ function navigateTo(route){
               >
               Register
             </RouterLink>
-            <RouterLink 
-              to="/login"
-              class="bg-sky-400 m-4 px-1 rounded-md text-white"
-              @click="changeToLoginPage"
-              >
-              Log In
-            </RouterLink>
+            <v-toolbar-items v-if="!routerStore.isUserLoggedIn">
+              <RouterLink 
+                  to="/login"
+                  class="bg-sky-400 m-4 px-1 rounded-md text-white"
+                  @click="changeToLoginPage"
+                  >
+                  Log In
+              </RouterLink>
+          </v-toolbar-items>
           </v-toolbar-items>
         </v-toolbar>
       </v-container>

@@ -28,7 +28,8 @@ export default {
        
         return Api().post('/login',credentials)
         .then(response =>{
-            console.log('Login response data:', response.data)
+            console.log('Login response data:', response.data);
+            return response.data.token;
         })
     }
 }
