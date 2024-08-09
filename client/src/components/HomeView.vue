@@ -1,6 +1,6 @@
 <template>
     <div> Parent Component</div>
-  
+ 
 
     <v-name :msg="atr">
         <template #slot1>

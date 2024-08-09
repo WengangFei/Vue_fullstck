@@ -1,14 +1,26 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from 'vue-router';
-import { ref } from 'vue';
-
-
+import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router';
+import { ref, watch } from 'vue';
+import { useRouterStore } from './piniaStores/routerStore';
+import { computed } from 'vue';
 
 
 //router object
 const router = useRouter();
 const title = ref('Home Page');
+//sync pinia with vue routes
+const route = useRoute();
+const routerStore = useRouterStore();
+const currentRoute = computed(()=> routerStore.currentRoute);
 
+//watch for route changes
+watch(
+  ()=>route.fullPath,
+  (newRoute,oldRoute)=>{
+    console.log(oldRoute, '=>', newRoute)
+    routerStore.updateRoute(newRoute);
+  }
+)
 
 function changeToRegisterPage(){
   title.value = 'Register Page'
@@ -38,6 +50,7 @@ function navigateTo(route){
           <RouterLink to="/" @click="changeToHomePage">
             <v-toolbar-title>
               New Project 
+              {{ currentRoute }}
             </v-toolbar-title>
           </RouterLink>
          

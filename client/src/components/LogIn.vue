@@ -25,7 +25,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import AuthenticationService from '@/services/AuthenticationService';
+import AuthenticationService from '@/services/AuthenticationService'
 
     const email = ref('');
     const password = ref('');
