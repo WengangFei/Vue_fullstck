@@ -34,10 +34,7 @@ function changeToHomePage(){
 function changeToLoginPage(){
   title.value = 'Login Page'
 }
-//push the route to local router object
-function navigateTo(route){
-  router.push(route)
-}
+
 
 </script>
 
@@ -58,28 +55,22 @@ function navigateTo(route){
             {{ title }}
           </v-toolbar-title>
           <v-toolbar-items>
-            <!-- <RouterLink 
+            <RouterLink 
               to="/" 
               class="bg-red-400 m-4 px-1 rounded-md text-white"
               @click="changeToHomePage"
               >
               Home
-            </RouterLink> -->
-
-            <v-btn 
-            @click="navigateTo({name:'home'})"
-            >
-              Home
-            </v-btn>
-
-            <RouterLink 
-              to="/register"
-              class="bg-sky-400 m-4 px-1 rounded-md text-white"
-              @click="changeToRegisterPage"
-              >
-              Register
             </RouterLink>
             <v-toolbar-items v-if="!routerStore.isUserLoggedIn">
+              <RouterLink 
+                to="/register"
+                class="bg-sky-400 m-4 px-1 rounded-md text-white"
+                @click="changeToRegisterPage"
+                >
+                Register
+              </RouterLink>
+           
               <RouterLink 
                   to="/login"
                   class="bg-sky-400 m-4 px-1 rounded-md text-white"
