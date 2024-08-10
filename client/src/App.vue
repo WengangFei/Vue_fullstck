@@ -87,7 +87,16 @@ function navigateTo(route){
                   >
                   Log In
               </RouterLink>
-          </v-toolbar-items>
+            </v-toolbar-items>
+            <v-toolbar-items v-if="routerStore.isUserLoggedIn">
+              <RouterLink 
+                  to="/login"
+                  class="bg-sky-400 m-4 px-1 rounded-md text-white"
+                  @click="changeToLoginPage"
+                  >
+                  Log Out
+              </RouterLink>
+            </v-toolbar-items>
           </v-toolbar-items>
         </v-toolbar>
       </v-container>
